@@ -10,13 +10,29 @@ const { generarJWT } = require('../helpers/jwt');
 // Servicio para la obtención de usuarios.
 let getUsuarios = async (req, res) => {
 
-    let usuarios = await Usuario.find({}, 'nombre email role google');
+    // Se valida el campo si no es mandado me inicializa en 0.
+    let desde = Number(req.query.desde) || 0;
+
+    // Se utiliza para ejecutar las promesas de manera simultanea.
+    let [usuarios, totalRegistros] = await Promise.all([
+        // Find con paginación
+        Usuario
+            .find({}, 'nombre email img role google')
+            .skip( desde )
+            .limit( 5 ),
+        // ^^^ .skip( Number ) se salta los registros desde el número señalado.
+        // ^^^ .limit( Number ) establece un limite de registros a encontrar.
+        Usuario.countDocuments()
+    ]);
+    // Es una colección de promesas.
 
     res.json({
         ok: true, 
         usuarios: usuarios,
         // Este campo es parte del response modificado en el middleware
-        uid: req.uid
+        uid: req.uid,
+        // Manda el total de registros.
+        totalRegistros
     });
 
 }

@@ -1,6 +1,10 @@
 let { response } = require('express');
 let bcrypt = require('bcryptjs'); 
 
+// ================================>
+//   Controladores de los Auth
+// ================================>
+
 let Usuario = require('../models/usuario.model')
 let {generarJWT} = require('../helpers/jwt')
 

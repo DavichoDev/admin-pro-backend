@@ -17,10 +17,16 @@ let validarJWT = ( req, res = response, next ) => {
     try {
 
         let { uid } = jwt.verify( token, process.env.JWT_SECRET );
-        // El verifi en caso de encontrar inconsistencia manda al CATCH
+        // El verify en caso de encontrar inconsistencia manda al CATCH
 
         // Se muestra/almacena el uid del usuario que hizo la petición
+        /* En esta linea, como es un middleware utiliza también el objeto (req),
+            este objeto también es utilizado por el controller consiguiente,
+            por lo tanto cualquier petición CRUD tiene almacenado el UID de quien
+            solicita, dicho UID esta almacenado en el JWT. 
+        */
         req.uid = uid;
+
 
         next();
 
