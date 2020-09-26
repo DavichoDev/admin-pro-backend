@@ -47,24 +47,82 @@ let crearMedico = async (req, res = response) => {
 
 }
 
-let actualizarMedico = (req, res = response) => {
+let actualizarMedico = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'actualizarMedico'
-    });
+    let idMedico = req.params.id;
+    // Id del usuario que realiza la modificación
+    let uid = req.uid;
+
+    try {
+
+        let medicoDB = await Medico.findById(idMedico);
+        if ( !medicoDB ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe un médico con ese ID.'
+            });
+        }
+
+        console.log(uid);
+
+        let cambiosMedico = {
+            ...req.body,
+            usuario: uid
+        };
+
+        let medicoActualizado = await Medico.findByIdAndUpdate(idMedico, cambiosMedico, {new: true});
+
+        res.json({
+            ok: true,
+            medico: medicoActualizado,
+            msg: 'Medico actualizado con éxito.'
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            ok: false,
+            msg: 'Contactar con el administrador.'
+        })
+    }
+
 
 }
 
-let borrarMedico = (req, res = response) => {
+// TODO: Revisar función
+let borrarMedico = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'borrarMedico'
-    });
+    let idMedico = req.params.id;
+
+    try {
+
+        let medicoDB = await Medico.findById(idMedico);
+    
+        console.log(medicoDB);
+
+        if ( !medicoDB ) {
+            return res.status(404).status({
+                ok: false,
+                msg: 'No existe ningún medico con ese ID.'
+            });
+        }
+
+        await Medico.findByIdAndDelete(idMedico);
+
+        res.json({
+            ok: true,
+            msg: 'Medico eliminado.'
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            ok: false,
+            msg: 'Contacte con el administrador.'
+        })
+    }
 
 }
-
 module.exports = {
     getMedicos,
     crearMedico,

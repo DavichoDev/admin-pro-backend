@@ -12,7 +12,7 @@ let router = Router();
 // ==================================>
 // INICIO GET hospitales
 // ==================================>
-router.get('/', getHospitales);
+router.get('/', validarJWT ,getHospitales);
 // ==================================>
 // FINAL GET hospitales
 // ==================================>
@@ -39,7 +39,9 @@ router.post('/',
 router.put('/:id', 
     [        
         // Middlewares 
-        
+        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+        validarJWT,
+        validarCampos
     ],
     actualizarHospital
 );
@@ -50,7 +52,7 @@ router.put('/:id',
 // =======================================>
 // INICIO DELETE ELIMINACIÓN de hospitales
 // =======================================> 
-router.delete('/:id', borrarHospital);
+router.delete('/:id', validarJWT ,borrarHospital);
 // ======================================>
 // FINAL DELETE ELIMINACIÓN de hospitales
 // ======================================> 

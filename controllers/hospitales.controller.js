@@ -53,21 +53,82 @@ let crearHospital = async(req, res = response) => {
 
 }
 
-let actualizarHospital = (req, res = response) => {
+let actualizarHospital = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'actualizarHospital'
-    });
+    let idHospital = req.params.id;
+    // ID del usuario que realizo la actualización.
+    let uid = req.uid;
+
+    try {
+
+        let hospitalDB = await Hospital.findById(idHospital);
+
+        if (!hospitalDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Hospital no encontrado.'
+            });
+        }
+
+        console.log(hospitalDB);
+
+        let cambiosHospital = {
+            ...req.body,
+            // ID del usuario que hace la modificacion
+            usuario: uid
+        };
+
+        // '{ new: true }' devuelve el registro ya actualizado.
+        let hospitalActualizado = await Hospital.findByIdAndUpdate(idHospital, cambiosHospital, { new: true });   
+
+        res.json({
+            ok: true,
+            hospital: hospitalActualizado,
+            msg: 'actualizarHospital',
+        });
+    
+    } catch (error) {
+        console.log( error );
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador.'
+        });
+    }
 
 }
 
-let borrarHospital = (req, res = response) => {
+// TODO: Checar esta función.
+let borrarHospital = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'borrarHospital'
-    });
+    let idHospital = req.params.id;
+
+    try {
+
+        let hospitalBD = await Hospital.findById(idHospital);
+    
+        console.log(hospitalBD);
+
+        if ( !hospitalBD ) {
+            return res.status(404).status({
+                ok: false,
+                msg: 'No existe ningún hospital con ese ID.'
+            });
+        }
+
+        await Hospital.findByIdAndDelete(idHospital);
+
+        res.json({
+            ok: true,
+            msg: 'Hospital eliminado.'
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            ok: false,
+            msg: 'Contacte con el administrador.'
+        })
+    }
 
 }
 
@@ -76,5 +137,5 @@ module.exports = {
     crearHospital,
     actualizarHospital,
     borrarHospital
-};
+};  
 

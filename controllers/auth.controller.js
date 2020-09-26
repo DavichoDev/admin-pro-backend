@@ -6,7 +6,9 @@
 let { response } = require('express');
 let bcrypt = require('bcryptjs'); 
 
+// Modelo del usuario
 let Usuario = require('../models/usuario.model');
+
 let {generarJWT} = require('../helpers/jwt');
 let { googleVerify } = require('../helpers/google-verify')
 
@@ -55,7 +57,6 @@ let login  = async (req, res = response ) => {
         });
     }
 }
-
 
 let googleSignIn = async (req, res = response) => {
 
@@ -107,7 +108,20 @@ let googleSignIn = async (req, res = response) => {
     }
 }
 
+let renewToken = async (req, res = response) => {
+
+    let uid = req.uid;
+    let token = await generarJWT( uid );
+
+    res.json({
+        ok: true,
+        token
+    });
+
+}
+
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    renewToken
 }

@@ -5,7 +5,9 @@
 let { Router } = require('express');
 let { check } =  require('express-validator');
 let { validarCampos } = require('../middlewares/validar-campos');
+
 let { getMedicos, crearMedico, actualizarMedico, borrarMedico } =  require('../controllers/medicos.controller');
+
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 let router = Router();    
@@ -40,8 +42,10 @@ router.post('/',
 // ====================================> 
 router.put('/:id', 
     [        
-        // Middlewares 
-        
+        validarJWT,
+        check('nombre', 'El es nombre obligatorio.').not().isEmpty(),
+        check('hospital', 'El ID del hospital debe ser válido.').isMongoId(),
+        validarCampos
     ],
     actualizarMedico
 );
@@ -52,7 +56,7 @@ router.put('/:id',
 // =====================================>
 // INICIO DELETE ELIMINACIÓN de medicos
 // =====================================> 
-router.delete('/:id', borrarMedico);
+router.delete('/:id', validarJWT ,borrarMedico);
 // ====================================>
 // FINAL DELETE ELIMINACIÓN de medicos
 // ====================================> 

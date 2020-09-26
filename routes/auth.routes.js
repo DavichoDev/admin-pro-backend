@@ -3,14 +3,14 @@
 */
 // Importaciones
 let { Router } = require('express');
-const { check } = require('express-validator');
+let { check } = require('express-validator');
 
 // Controller
-let { login, googleSignIn } = require('../controllers/auth.controller');
+let { login, googleSignIn, renewToken } = require('../controllers/auth.controller');
 
 // Middlewares
-const { validarCampos } = require('../middlewares/validar-campos');
-
+let { validarCampos } = require('../middlewares/validar-campos');
+let { validarJWT } = require('../middlewares/validar-jwt');
 
 let router = Router();
 
@@ -33,6 +33,13 @@ router.post('/login/google',
         validarCampos
     ],
     googleSignIn
+);
+
+router.get('/login/renew',
+    [
+        validarJWT
+    ],
+    renewToken
 );
 
 
