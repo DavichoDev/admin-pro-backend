@@ -33,7 +33,6 @@ let getBusqueda = async(req, res = response) => {
 // Servicio para la obtención de doctos por Colección.
 let getDocumentosColeccion = async(req, res = response) => {
 
-
     let tabla    = req.params.tabla;
     let busqueda = req.params.busqueda;
     let regEx    = new RegExp(busqueda, 'i');
@@ -49,7 +48,7 @@ let getDocumentosColeccion = async(req, res = response) => {
         case 'usuarios':
             data = await Usuario.find ({  nombre: regEx  });
         break;
-        
+
         case 'hospitales':            
             data = await Hospital.find ({  nombre: regEx  });
         break;

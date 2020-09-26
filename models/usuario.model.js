@@ -24,6 +24,7 @@ let UsuarioSchema = new Schema ({
         require: true,
         default: 'USER_ROLE'
     },
+    // Campo para el 'Auth' de google.
     google: {
         type: Boolean,
         default: false 

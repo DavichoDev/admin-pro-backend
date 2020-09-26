@@ -27,7 +27,6 @@ let validarJWT = ( req, res = response, next ) => {
         */
         req.uid = uid;
 
-
         next();
 
     } catch (error) {

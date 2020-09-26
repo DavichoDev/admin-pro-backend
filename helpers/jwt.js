@@ -8,16 +8,20 @@ let generarJWT = ( uid ) => {
             uid
         };
 
-        jwt.sign(payload, process.env.JWT_SECRET,
+        jwt.sign(
+            payload,  
+            process.env.JWT_SECRET,
             {expiresIn: '12h'},
+            // Resolución o Rechazo de Promesa
             (err, token) =>{
                 if ( err ) {
                     console.log(err);
-                    reject('No se pudo generar el JWT')
+                    reject('No se pudo generar el JWT');
                 } else {
                     resolve( token );
                 }
             }
+
         );
     })
 }

@@ -16,6 +16,8 @@ let MedicoSchema = new Schema ({
         ref: 'Hospital',
         required: true
     },
+
+    // Registro de manipulación o creación
     usuario: {
         // Indica que habrá una relación con el Schema Usuario
         type: Schema.Types.ObjectId,
