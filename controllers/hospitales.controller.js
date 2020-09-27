@@ -108,11 +108,11 @@ let borrarHospital = async (req, res = response) => {
     
         console.log(hospitalBD);
 
-        if ( !hospitalBD ) {
-            return res.status(404).status({
+        if (!hospitalBD) {
+            res.status(404).json({
                 ok: false,
-                msg: 'No existe ningún hospital con ese ID.'
-            });
+                msg: 'No existe hospital con ese ID.'
+            })
         }
 
         await Hospital.findByIdAndDelete(idHospital);
