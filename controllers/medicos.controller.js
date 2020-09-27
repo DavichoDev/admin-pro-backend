@@ -89,7 +89,6 @@ let actualizarMedico = async (req, res = response) => {
 
 }
 
-// TODO: Revisar función
 let borrarMedico = async (req, res = response) => {
 
     let idMedico = req.params.id;

@@ -97,7 +97,6 @@ let actualizarHospital = async (req, res = response) => {
 
 }
 
-// TODO: Checar esta función.
 let borrarHospital = async (req, res = response) => {
 
     let idHospital = req.params.id;
