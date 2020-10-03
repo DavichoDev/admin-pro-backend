@@ -96,7 +96,6 @@ let borrarMedico = async (req, res = response) => {
     try {
 
         let medicoDB = await Medico.findOne({_id:idMedico});
-    
         console.log(medicoDB);
 
         if (!medicoDB) {
@@ -105,8 +104,6 @@ let borrarMedico = async (req, res = response) => {
                 msg: 'No existe médico con ese ID.'
             })
         }
-
-        console.log('Paso IF');
 
         await Medico.findByIdAndDelete(idMedico);
 

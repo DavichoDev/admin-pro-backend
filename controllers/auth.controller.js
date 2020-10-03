@@ -20,7 +20,6 @@ let login  = async (req, res = response ) => {
     try {
 
         // Demora de 1s {security}
-
         // Verificación de E-mail
         let usuarioDB = await Usuario.findOne({ email });
         if(!usuarioDB){
@@ -113,9 +112,12 @@ let renewToken = async (req, res = response) => {
     let uid = req.uid;
     let token = await generarJWT( uid );
 
+    const usuario = await Usuario.findById(uid);
+
     res.json({
         ok: true,
-        token
+        token,
+        usuario: usuario
     });
 
 }
