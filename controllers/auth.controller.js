@@ -2,7 +2,6 @@
 // ================================>
 //   Controladores de los Auth
 // ================================>
-
 let { response } = require('express');
 let bcrypt = require('bcryptjs'); 
 
