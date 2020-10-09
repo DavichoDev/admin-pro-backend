@@ -9,7 +9,8 @@ let bcrypt = require('bcryptjs');
 let Usuario = require('../models/usuario.model');
 
 let {generarJWT} = require('../helpers/jwt');
-let { googleVerify } = require('../helpers/google-verify')
+let { googleVerify } = require('../helpers/google-verify');
+const { getMenuFrontEnd } = require('../helpers/menu-frontend');
 
 let login  = async (req, res = response ) => {
 
@@ -44,7 +45,8 @@ let login  = async (req, res = response ) => {
         // Generación de token
         res.json({
             ok: true,
-            token
+            token,
+            menu: getMenuFrontEnd( usuarioDB.role )
         });
 
     } catch (error) {
@@ -54,7 +56,7 @@ let login  = async (req, res = response ) => {
             msg: 'Hable con el administrador.'
         });
     }
-}
+};
 
 let googleSignIn = async (req, res = response) => {
 
@@ -94,7 +96,8 @@ let googleSignIn = async (req, res = response) => {
         email,
         picture, 
         msg: 'Google Sign In',
-        token
+        token,
+        menu: getMenuFrontEnd( usuario.role )
     });
 
     } catch (error) {
@@ -104,7 +107,7 @@ let googleSignIn = async (req, res = response) => {
             msg: 'El Token no es correcto.'
         });
     }
-}
+};
 
 let renewToken = async (req, res = response) => {
 
@@ -116,10 +119,11 @@ let renewToken = async (req, res = response) => {
     res.json({
         ok: true,
         token,
-        usuario: usuario
+        usuario: usuario,
+        menu: getMenuFrontEnd( usuario.role )
     });
 
-}
+};
 
 module.exports = {
     login,

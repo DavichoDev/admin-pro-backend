@@ -74,8 +74,7 @@ let crearUsuario = async (req, resp = response) => {
 
 // Servicio para la actualización de usuario.
 let actualizarUsuario = async (req, res = response) => {
-  // ToDo_comment: Validar token y comprobar si es el usuario correcto.
-
+  // ToDo_comment: Validar token y comprobar si es el usuario correcto.s
   let uid = req.params.id;
 
   try {
