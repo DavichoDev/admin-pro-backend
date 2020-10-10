@@ -4,8 +4,14 @@ require('dotenv').config();
 let dbConnection = async () => {
 
     try {
+        let dbConnString = '';
 
-        await mongoose.connect(process.env.DB_CONN || "mongodb+srv://DavichoDev:Interpol123@@cluster0.reday.mongodb.net/hospitaldb",{useNewUrlParser: true,useUnifiedTopology: true});
+        if (!process.env.DB_CONN || process.env.DB_CONN === undefined) {
+            dbConnString = process.env.DB_CNNLOCAL;
+        } else {
+            dbConnString = process.env.DB_CONN;
+        }        
+        await mongoose.connect(dbConnString ,{useNewUrlParser: true,useUnifiedTopology: true});
 
         console.log('========================>');
         console.log('----- DB en linea ------');
