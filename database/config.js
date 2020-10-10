@@ -5,7 +5,8 @@ let dbConnection = async () => {
 
     try {
 
-        await mongoose.connect(process.env.db_cnn, 
+        await mongoose.connect(
+            process.env.db_cnn, 
         {
             useNewUrlParser: true,  
             useUnifiedTopology: true
