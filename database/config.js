@@ -5,12 +5,7 @@ let dbConnection = async () => {
 
     try {
 
-        await mongoose.connect(
-            process.env.DB_CNN, 
-        {
-            useNewUrlParser: true,  
-            useUnifiedTopology: true
-        });
+        await mongoose.connect("mongodb+srv://DavichoDev:Interpol123@@cluster0.reday.mongodb.net/hospitaldb",{useNewUrlParser: true,useUnifiedTopology: true});
 
         console.log('========================>');
         console.log('----- DB en linea ------');
