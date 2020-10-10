@@ -25,14 +25,12 @@ app.use('/api/hospitales', require('./routes/hospitales.routes') );
 app.use('/api/medicos', require('./routes/medicos.routes') );
 app.use('/api/usuarios', require('./routes/usuarios.routes') );
 app.use('/api/todo', require('./routes/busquedas.routes'));
-
 // Rutas que soportan archivos
 app.use('/api/uploads', require('./routes/uploads.routes'));
-
 // Rutas de autentificación
 app.use('/api/auth', require('./routes/auth.routes') );
 
 
 app.listen( process.env.port , () => {
-    console.log('Servidor corriendo...');
+    console.log('Servidor corriendo... en >>>>: ', process.env.PORT);
 }); 

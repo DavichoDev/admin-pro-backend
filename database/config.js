@@ -6,20 +6,17 @@ let dbConnection = async () => {
     try {
 
         await mongoose.connect(
-            'mongodb+srv://DavichoDev:Interpol123@@cluster0.reday.mongodb.net/hospitaldb', 
+            process.env.DB_CNN, 
         {
             useNewUrlParser: true,  
             useUnifiedTopology: true
         });
 
         console.log('========================>');
-        console.log('----- DB en línea ------');
+        console.log('----- DB en linea ------');
         console.log('========================>');
-        
     } catch (error) {
-        console.log("Error: ", error);
-        console.log('=============================================================================>');
-        throw new Error('==========> Error al iniciar la base de datos analizar LOGS <==========')
+        console.log("Error al iniciar la base de datos ==========> : ", error);
     }
 
 
