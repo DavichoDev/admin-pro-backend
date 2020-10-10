@@ -34,5 +34,5 @@ app.use('/api/auth', require('./routes/auth.routes') );
 
 
 app.listen( process.env.port , () => {
-    console.log('Servidor corriendo en puerto: ' + process.env.port );
+    console.log('Servidor corriendo...');
 }); 
