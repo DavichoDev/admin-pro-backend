@@ -16,6 +16,7 @@ let dbConnection = async () => {
         console.log('========================>');
         
     } catch (error) {
+        console.log("Error: ", error);
         console.log('=============================================================================>');
         throw new Error('==========> Error al iniciar la base de datos analizar LOGS <==========')
     }
