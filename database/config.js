@@ -6,7 +6,7 @@ let dbConnection = async () => {
     try {
 
         await mongoose.connect(
-            process.env.db_cnn, 
+            'mongodb+srv://DavichoDev:Interpol123@@cluster0.reday.mongodb.net/hospitaldb', 
         {
             useNewUrlParser: true,  
             useUnifiedTopology: true
