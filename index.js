@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const path = require('path');
+
 let express = require('express');
 let cors = require('cors');
 
@@ -30,6 +32,12 @@ app.use('/api/uploads', require('./routes/uploads.routes'));
 // Rutas de autentificación
 app.use('/api/auth', require('./routes/auth.routes') );
 
+// Lo ultimo
+app.get('*', (req, response) => {
+
+    response.sendFile( path.resolve(__dirname, 'public/index.html') );
+
+});
 
 app.listen( process.env.PORT || 3000 , () => {
     console.log('Servidor corriendo... en >>>>: ', process.env.PORT || 3000 );
