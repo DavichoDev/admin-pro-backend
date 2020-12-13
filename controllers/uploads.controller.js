@@ -13,7 +13,7 @@ let Portafolio =  require("../models/portafolio.model");
 let fs = require('fs');
 
 cloudinary.config({ 
-    cloud_name: 'davicho', 
+    cloud_name: process.env.CLOUD_NAME, 
     api_key: process.env.CLOUDINARY_APIKEY, 
     api_secret: process.env.CLOUDINARY_APISECRET 
 });
