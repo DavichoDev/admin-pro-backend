@@ -17,14 +17,12 @@ let ProductoSchema = new Schema ({
     }
 });
 
-// Se cambio el nombre de la propiedad _id => uid
-// ProductoSchema.method('toJSON', function() {
-//     // Filtramos los datos retornados por la bd.
-//     let { __v, _id, password, ...object } = this.toObject();
-//     object.uid = _id;
+// Filtro BD
+ProductoSchema.method('toJSON', function() {
+    // Filtramos los datos retornados por la bd.
+    let { __v, _id, ...object } = this.toObject();
+    return object;
 
-//     return object;
-
-// });
+});
 
 module.exports = model('Producto', ProductoSchema);

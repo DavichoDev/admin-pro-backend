@@ -18,14 +18,11 @@ let PortafolioSchema = new Schema ({
 
 });
 
-// Se cambio el nombre de la propiedad _id => uid
-// PortafolioSchema.method('toJSON', function() {
-//     // Filtramos los datos retornados por la bd.
-//     let { __v, _id, password, ...object } = this.toObject();
-//     object.uid = _id;
-
-//     return object;
-
-// });
+// Filtro BD
+PortafolioSchema.method('toJSON', function() {
+    // Filtramos los datos retornados por la bd.
+    let { __v, _id, ...object } = this.toObject();
+    return object;
+});
 
 module.exports = model('Portafolio', PortafolioSchema);
