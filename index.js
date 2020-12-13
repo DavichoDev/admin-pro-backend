@@ -7,6 +7,8 @@ let cors = require('cors');
 
 let { dbConnection } = require('./database/config');
 
+let fileupload = require('express-fileupload');
+
 // Crear el servidor express
 let app = express();
 
@@ -31,6 +33,8 @@ app.use('/api/todo', require('./routes/busquedas.routes'));
 app.use('/api/uploads', require('./routes/uploads.routes'));
 // Rutas de autentificación
 app.use('/api/auth', require('./routes/auth.routes') );
+//
+app.use('/api/polizona', require('./routes/polizona.routes') );
 
 // Lo ultimo
 app.get('*', (req, response) => {
