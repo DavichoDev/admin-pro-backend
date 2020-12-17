@@ -33,7 +33,7 @@ app.use('/api/todo', require('./routes/busquedas.routes'));
 app.use('/api/uploads', require('./routes/uploads.routes'));
 // Rutas de autentificación
 app.use('/api/auth', require('./routes/auth.routes') );
-//
+app.use('/api/arduino', require('./routes/arduino.routes') );
 app.use('/api/polizona', require('./routes/polizona.routes') );
 
 // Lo ultimo
