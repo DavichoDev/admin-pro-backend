@@ -11,19 +11,11 @@ let router = Router();
 //Get
 router.get('/:id', obtenerDatos);
 //Post
-router.put('/:id',
-    [
-        check('sala', "Debes ingresar un digito 1 o 0 en la sala"),
-        check('puerta', "Debes ingresar un digito 1 o 0 en la puerta"),
-        check('patio', "Debes ingresar un digito 1 o 0 en la patio"),
-        validarCampos
-    ],
-    modificarDatos
-);
+router.put('/:id',modificarDatos);
 //Put
 router.post('/',
     [
-        check('sala', "Debes ingresar un digito 1 o 0 en la sala"),
+        check('generador', "Debes ingresar un digito 1 o 0 en la generador"),
         check('puerta', "Debes ingresar un digito 1 o 0 en la puerta"),
         check('patio', "Debes ingresar un digito 1 o 0 en la patio"),
         validarCampos

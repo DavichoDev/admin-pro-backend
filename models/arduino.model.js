@@ -3,7 +3,7 @@ let { Schema, model } = require('mongoose');
 
 let ArduinoSchema = new Schema ({
 
-    sala: {
+    generador: {
         type: Number,
         required: true,
     },
