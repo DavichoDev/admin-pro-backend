@@ -7,8 +7,6 @@ let cors = require('cors');
 
 let { dbConnection } = require('./database/config');
 
-let fileupload = require('express-fileupload');
-
 // Crear el servidor express
 let app = express();
 
@@ -33,14 +31,18 @@ app.use('/api/todo', require('./routes/busquedas.routes'));
 app.use('/api/uploads', require('./routes/uploads.routes'));
 // Rutas de autentificación
 app.use('/api/auth', require('./routes/auth.routes') );
+
+// Rutas de otros proyectos
+//..Arduino Casa Inteligente
 app.use('/api/arduino', require('./routes/arduino.routes') );
+//..Email CustomWoods
+app.use('/api/email', require('./routes/email.routes') );
+//..Polizona. Api de REXTESTER
 app.use('/api/polizona', require('./routes/polizona.routes') );
 
 // Lo ultimo
 app.get('*', (req, response) => {
-
     response.sendFile( path.resolve(__dirname, 'public/index.html') );
-
 });
 
 app.listen( process.env.PORT || 3000 , () => {
