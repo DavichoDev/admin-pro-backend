@@ -66,6 +66,7 @@ let enviarEmail = async ( campos ) => {
             <h3>Material de la madera: `+ campos.material +`</h3>
             <h3>Tipo de mueble: `+ campos.tipoMueble +`</h3>
             <h3>Imagen: `+ campos.file +`</h3>
+            <h3>Visualizacion de la img :</h3> <img src="`+ campos.file +`" alt="ImgEnviada">
             <h3>Color: `+ campos.color +`</h3>
             <h3>Acabado: `+ campos.acabado +`</h3>
             `
@@ -111,4 +112,87 @@ let postEmail = async (req, res = response) => {
     }
 };
 
-module.exports = { enviarEmail, postEmail };
+let enviarEmailMsg = async ( campos ) => {
+
+    try {
+
+        const accessToken = await oAuth2Client.getAccessToken().catch((error) => {console.log('error en el token> ', error)});
+
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'customwoods.contacto@gmail.com',
+                clientId: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_SECRET_EMAIL,
+                refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+                accessToken: accessToken 
+            } 
+        });
+
+        const mailOptions = {
+            from: 'CustomWoods CONTACTO <customwoods.contacto@gmail.com>',
+            to: campos.correo,
+            subject: "Mensaje de contacto",
+            text: 'Se recibio tu mensaje desde el correo, ' + campos.correo,
+            html: 
+            `
+            <h2>Mensaje: </h2>
+            <h3>`+ campos.mensaje +`</h3>
+            <h3>Correo recibido de: `+ campos.correo +`</h3>`
+            
+        };
+
+        const mailOptionsCustomWoods = {
+            from: 'CustomWoods CONTACTO <customwoods.contacto@gmail.com>',
+            to: campos.correo,
+            subject: "Mensaje de contacto",
+            text: 'Se recibió un mensaje de, ' + campos.nombre,
+            html: 
+            `
+            <h2>Mensaje: </h2>
+            <h3>`+ campos.mensaje +`</h3>
+            <h3>Correo recibido de: `+ campos.correo +`</h3>`
+        };
+
+        await transport.sendMail(mailOptionsCustomWoods)
+        return await transport.sendMail(mailOptions); 
+
+    } catch (error) {
+        return error;
+    }
+
+}  
+
+let postEmailMsg = async (req, res = response) => {
+
+    try{
+
+        const campos = req.body;
+
+        let envioEmail = 
+        await enviarEmailMsg(campos)
+        .then( ( result ) => console.log( 'Email enviado...', result ) )
+        .catch( ( error ) => {
+            console.log('Error al enviar email... ', error );
+            res.status(500).json({
+                ok: false, 
+                msg: 'Se produjo un error al enviar el correo.'
+            });    
+        }); 
+
+        res.json({
+            ok: true,
+            msg: 'Email enviado exitosamente a: ' + campos.correo
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false, 
+            msg: 'El servidor de google tuvo un problema.'
+        });
+    }
+};
+
+module.exports = { enviarEmail, postEmail, postEmailMsg };

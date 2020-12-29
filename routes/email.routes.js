@@ -8,4 +8,7 @@ const { validarCampos } = require('../middlewares/validar-campos');
 // Post Email
 router.post('/', postEmail);
 
+// Post Email Msg
+router.post('/msg', postEmailMsg);
+
 module.exports = router;
