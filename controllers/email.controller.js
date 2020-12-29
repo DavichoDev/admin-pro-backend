@@ -145,7 +145,7 @@ let enviarEmailMsg = async ( campos ) => {
 
         const mailOptionsCustomWoods = {
             from: 'CustomWoods CONTACTO <customwoods.contacto@gmail.com>',
-            to: campos.correo,
+            to: 'customwoods.contacto@gmail.com',
             subject: "Mensaje de contacto",
             text: 'Se recibió un mensaje de, ' + campos.nombre,
             html: 
