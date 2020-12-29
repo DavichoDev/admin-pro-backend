@@ -1,5 +1,5 @@
 let { Router } = require('express');
-let { enviarEmail, postEmail, postEmailMsg  } = require('../controllers/email.controller');
+let { postEmail, postEmailMsg  } = require('../controllers/email.controller');
 let router = Router();  
 
 const { check } =  require('express-validator');
