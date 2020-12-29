@@ -1,6 +1,6 @@
 let { Router } = require('express');
 let { fileUpload, retornaImagen, subirPortafolio, 
-    subirProducto, getPortafolio, 
+    subirProducto, subirImg, getPortafolio, 
     getProducto  } = require('../controllers/uploads.controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -51,6 +51,9 @@ router.post('/productos',
     ],
     subirProducto
 );
+
+// Post Productos
+router.post('/img', subirImg);
 
 //Get Portafolio
 router.get('/portafolio', getPortafolio);
